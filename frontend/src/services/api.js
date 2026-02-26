@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { mockApi } from './mockApi';
 
-// Use mock API for development when backend is not available
-const USE_MOCK_API = true;
+// Use real API now that MongoDB is connected
+const USE_MOCK_API = false;
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
 
 // Create axios instance
 const api = axios.create({
