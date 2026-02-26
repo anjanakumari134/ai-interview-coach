@@ -27,7 +27,7 @@ const interviewRoleSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: false
+    required: true
   },
   isActive: {
     type: Boolean,
