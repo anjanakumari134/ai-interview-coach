@@ -1,6 +1,5 @@
 const { body, validationResult } = require('express-validator');
 const InterviewSession = require('../models/InterviewSession');
-const ActivityLog = require('../models/ActivityLog');
 
 // @desc    Get all interview sessions for a user
 // @route   GET /api/interviews
@@ -129,14 +128,6 @@ const createInterview = async (req, res, next) => {
       totalScore: 0 // Will be calculated by pre-save hook
     });
 
-    // Log activity
-    await ActivityLog.create({
-      userId: req.user.id,
-      sessionId: interview._id,
-      action: 'created',
-      details: { role, category }
-    });
-
     res.status(201).json({
       success: true,
       data: interview
@@ -191,14 +182,6 @@ const updateInterview = async (req, res, next) => {
 
     interview = await interview.save();
 
-    // Log activity
-    await ActivityLog.create({
-      userId: req.user.id,
-      sessionId: interview._id,
-      action: 'updated',
-      details: { status, questionsCount: questions?.length }
-    });
-
     res.json({
       success: true,
       data: interview
@@ -231,14 +214,6 @@ const deleteInterview = async (req, res, next) => {
     }
 
     await interview.deleteOne();
-
-    // Log activity
-    await ActivityLog.create({
-      userId: req.user.id,
-      sessionId: interview._id,
-      action: 'deleted',
-      details: { role: interview.role, category: interview.category }
-    });
 
     res.json({
       success: true,

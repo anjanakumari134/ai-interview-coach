@@ -115,15 +115,4 @@ export const analyticsAPI = {
   },
 };
 
-// Activity API
-export const activityAPI = {
-  getActivity: async (params) => {
-    if (USE_MOCK_API) {
-      return mockApi.getActivity(params);
-    }
-    const response = await api.get('/activity', { params });
-    return response.data;
-  },
-};
-
 export default api;

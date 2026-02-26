@@ -4,8 +4,6 @@ import { useAuth } from '../context/AuthContext';
 import {
   FileText,
   BarChart3,
-  Clock,
-  TrendingUp,
   Award,
   Play,
   Calendar,
@@ -29,20 +27,6 @@ const Dashboard = () => {
       icon: BarChart3,
       color: 'bg-green-500',
       change: '+5% improvement',
-    },
-    {
-      name: 'Practice Hours',
-      value: '24',
-      icon: Clock,
-      color: 'bg-purple-500',
-      change: '+8 hours this month',
-    },
-    {
-      name: 'Streak',
-      value: '7 days',
-      icon: TrendingUp,
-      color: 'bg-orange-500',
-      change: 'Personal best!',
     },
   ];
 
@@ -88,13 +72,6 @@ const Dashboard = () => {
       href: '/analytics',
       color: 'bg-green-600',
     },
-    {
-      name: 'Review History',
-      description: 'See past interview sessions',
-      icon: Clock,
-      href: '/activity',
-      color: 'bg-purple-600',
-    },
   ];
 
   return (
@@ -110,7 +87,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2">
         {stats.map((stat) => (
           <div key={stat.name} className="card">
             <div className="flex items-center">

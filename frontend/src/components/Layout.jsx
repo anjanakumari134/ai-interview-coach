@@ -25,7 +25,6 @@ const Layout = () => {
     { name: 'Interviews', href: '/interviews', icon: FileText },
     { name: 'Interview Roles', href: '/interview-roles', icon: Settings },
     { name: 'Analytics', href: '/analytics', icon: BarChart3 },
-    { name: 'Activity', href: '/activity', icon: Clock },
   ];
 
   const handleLogout = () => {

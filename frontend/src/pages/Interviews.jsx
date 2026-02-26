@@ -44,19 +44,25 @@ const Interviews = () => {
     }),
   });
 
-  const createInterviewMutation = useMutation({
-    mutationFn: (interviewData) => interviewAPI.createInterview(interviewData),
+  const handleCreateInterview = () => {
+    navigate('/interviews/new');
+  };
+
+  const deleteInterviewMutation = useMutation({
+    mutationFn: (id) => interviewAPI.deleteInterview(id),
     onSuccess: () => {
-      toast.success('Interview created successfully!');
-      navigate('/interviews/new');
+      toast.success('Interview deleted successfully');
+      queryClient.invalidateQueries({ queryKey: ['interviews'] });
     },
-    onError: (error) => {
-      toast.error('Failed to create interview');
+    onError: () => {
+      toast.error('Failed to delete interview');
     },
   });
 
-  const handleCreateInterview = () => {
-    navigate('/interviews/new');
+  const handleDeleteInterview = (id) => {
+    const confirmed = window.confirm('Are you sure you want to delete this interview?');
+    if (!confirmed) return;
+    deleteInterviewMutation.mutate(id);
   };
 
   const roles = [
@@ -299,7 +305,10 @@ const Interviews = () => {
                         >
                           <Edit className="h-4 w-4" />
                         </Link>
-                        <button className="text-red-600 hover:text-red-900">
+                        <button
+                          className="text-red-600 hover:text-red-900"
+                          onClick={() => handleDeleteInterview(interview._id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </button>
                       </div>

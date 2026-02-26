@@ -11,7 +11,6 @@ import Interviews from './pages/Interviews';
 import InterviewSession from './pages/InterviewSession';
 import InterviewRoles from './pages/InterviewRoles';
 import Analytics from './pages/Analytics';
-import Activity from './pages/Activity';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
@@ -49,7 +48,6 @@ function App() {
                 <Route path="interviews/:id" element={<InterviewSession />} />
                 <Route path="interview-roles" element={<InterviewRoles />} />
                 <Route path="analytics" element={<Analytics />} />
-                <Route path="activity" element={<Activity />} />
               </Route>
             </Routes>
             <Toaster

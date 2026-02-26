@@ -59,28 +59,6 @@ const mockAnalytics = {
   ],
 };
 
-const mockActivity = [
-  {
-    _id: '1',
-    action: 'created',
-    timestamp: new Date().toISOString(),
-    sessionId: {
-      role: 'Frontend Developer',
-      category: 'Technical',
-    },
-    details: { score: 85 },
-  },
-  {
-    _id: '2',
-    action: 'updated',
-    timestamp: new Date(Date.now() - 3600000).toISOString(),
-    sessionId: {
-      role: 'Backend Developer',
-      category: 'System Design',
-    },
-  },
-];
-
 // Simulate network delay
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -163,7 +141,6 @@ export const mockApi = {
       status: 'in-progress',
       totalScore: null,
       createdAt: new Date().toISOString(),
-      questions: mockQuestions['Frontend Developer']['Technical'] || [],
     };
     mockInterviews.push(newInterview);
     return { data: newInterview };
@@ -194,22 +171,6 @@ export const mockApi = {
     await delay(1200);
     return { data: mockAnalytics };
   },
-
-  // Activity endpoint
-  getActivity: async (filters = {}) => {
-    await delay(800);
-    return {
-      data: {
-        activities: mockActivity,
-        statistics: {
-          totalActivities: mockActivity.length,
-          recentActivityCount: mockActivity.length,
-          actionStats: [
-            { action: 'created', count: 1 },
-            { action: 'updated', count: 1 },
-          ],
-        },
-      },
-    };
-  },
 };
+
+export default mockApi;

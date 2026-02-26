@@ -78,9 +78,10 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       try {
         const response = await authAPI.getMe();
+        // authAPI.getMe returns response.data, which contains { success, user }
         dispatch({
           type: AUTH_ACTIONS.LOAD_USER_SUCCESS,
-          payload: response.data.user,
+          payload: response.user,
         });
       } catch (error) {
         localStorage.removeItem('token');
@@ -97,7 +98,8 @@ export const AuthProvider = ({ children }) => {
     try {
       dispatch({ type: AUTH_ACTIONS.LOGIN_START });
       const response = await authAPI.login(credentials);
-      const { token, user } = response.data;
+      // authAPI.login returns response.data, which contains { success, token, user }
+      const { token, user } = response;
       
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
@@ -123,8 +125,8 @@ export const AuthProvider = ({ children }) => {
       console.log('Register function called with:', userData);
       dispatch({ type: AUTH_ACTIONS.LOGIN_START });
       const response = await authAPI.register(userData);
-      console.log('Register response:', response);
-      const { token, user } = response.data;
+      // authAPI.register returns response.data, which contains { success, token, user }
+      const { token, user } = response;
       
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
@@ -137,7 +139,7 @@ export const AuthProvider = ({ children }) => {
       toast.success('Registration successful!');
       return { success: true };
     } catch (error) {
-      console.log('Register error:', error);
+      console.error('Registration failed:', error.response?.data || error);
       dispatch({ type: AUTH_ACTIONS.LOGIN_FAILURE });
       const message = error.response?.data?.message || 'Registration failed';
       toast.error(message);

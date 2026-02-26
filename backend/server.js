@@ -1,13 +1,22 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const connectDB = require('./config/database');
 const errorHandler = require('./middleware/errorHandler');
 
-// Load env vars
-dotenv.config();
+// Load env vars (explicitly load backend/.env so running from project root still loads it)
+dotenv.config({ path: path.join(__dirname, '.env') });
+
+// Warn if critical env vars are not present
+if (!process.env.MONGODB_URI) {
+  console.warn('Warning: MONGODB_URI is not set. Ensure backend/.env exists and is loaded.');
+}
+if (!process.env.JWT_SECRET) {
+  console.warn('Warning: JWT_SECRET is not set. Authentication will fail without it.');
+}
 
 // Connect to database
 connectDB();
@@ -30,7 +39,7 @@ app.use(limiter);
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
     ? ['https://yourdomain.com'] 
-    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5176'],
+    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5176', 'http://localhost:5174'],
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
@@ -46,7 +55,6 @@ app.use((req, res, next) => {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/interviews', require('./routes/interviews'));
 app.use('/api/analytics', require('./routes/analytics'));
-app.use('/api/activity', require('./routes/activity'));
 app.use('/api/interview-roles', require('./routes/interviewRoles'));
 
 // Health check endpoint
@@ -69,7 +77,7 @@ app.use('*', (req, res) => {
 // Error handler middleware
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 const server = app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);

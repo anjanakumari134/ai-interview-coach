@@ -1,5 +1,4 @@
 const InterviewSession = require('../models/InterviewSession');
-const ActivityLog = require('../models/ActivityLog');
 
 // @desc    Get user analytics
 // @route   GET /api/analytics
