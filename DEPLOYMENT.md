@@ -14,9 +14,9 @@
 6. Add Environment Variables:
    - `NODE_ENV`: `production`
    - `PORT`: `5000`
-   - `MONGODB_URI`: `mongodb+srv://username:password@cluster.mongodb.net/ai-interview-coach`
+   - `MONGODB_URI`: `mongodb+srv://anjanasingh85612_db_user:BqtZypKhhvkk781x@cluster0.jlrispd.mongodb.net/ai-interview-coach`
    - `JWT_SECRET`: `e7690152a917a0ed0d34b54911de15e549b8750d6721ac36547963de3fe9c9d90aee632578f530c73658b3e2126481cbdc76afc6de684d1251044e7733cc79ef`
-   - `OPENAI_API_KEY`: `your-openai-api-key`
+   - `GOOGLE_API_KEY`: `AIzaSyCiTPglfmkq7p0lix6zbtIJ4SAHejR4W4M`
 7. Click "Create Web Service"
 
 ## Frontend Deployment on Vercel
@@ -33,6 +33,6 @@
 
 ## Important Notes
 
-- Replace MongoDB URI with your actual MongoDB Atlas connection string
-- Replace OpenAI API key with your actual key
+- MongoDB URI and Google API key are already configured
 - After backend deployment, update frontend VITE_API_URL with actual Render URL
+- Your backend will be available at: `https://your-service-name.onrender.com`
